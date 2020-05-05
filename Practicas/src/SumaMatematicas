@@ -1,0 +1,24 @@
+public class SumaMatematicas {
+    /**
+     * Funcion estatica
+     * esta funcion se podria hacer con menos codigo?
+
+
+    public int sumaDosNumeros(int param1, int param2) {
+        int resultado=param1+param2;
+        return resultado;
+    }
+
+    /** funcion con menos codigo
+     * public int sumaDosNumeros(int param1, int param2) {
+     *     return (param1+param2);
+     *
+     * }
+
+
+
+//    resta , mult , div 3 numeros
+
+    //        System.out.println("El resultado de la suma es igual a:"+resultado);
+}
+
