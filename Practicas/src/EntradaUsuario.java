@@ -26,6 +26,11 @@ public class EntradaUsuario {
         long param1 = leeUnSumando();
         // Intenta leer este param solo cuando haga falta TODO @Joni
         long param2 = leeUnSumando();
+        /** limito las opciones para param2, me faltal conceptos...no se como ponerlo :) TODO @Week */
+        {if (param2==(" 1 suma \n" +
+                " 2 resta \n" +
+                " 3 multiplicación \n" +
+                " 4 división\n" +));}
 
         realizaOperaciones(ope, param1, param2);
 
@@ -41,10 +46,18 @@ public class EntradaUsuario {
 
     public long leeUnSumando(String mensaje) {
         long param1;
+
+        /**mi idea es colocar una funcion para que no deje introducir letras, solo números...
+         * pero dentro de los parentesis no se a que tengo k hacer referencia... TODO @Week */
+        if (!Character.isDigit(param1)){
+            e.consume();
+        }
+
         Scanner objeto = new Scanner(System.in);
         System.out.println(mensaje);
         param1 = objeto.nextInt();
         return param1;
+
     }
 
     public void usuarioSimulado() {
