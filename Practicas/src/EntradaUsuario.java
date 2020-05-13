@@ -7,6 +7,7 @@ public class EntradaUsuario {
     private Matematicas mates;
 
     public EntradaUsuario() {
+
         mates = new Matematicas();
     }
 
@@ -19,22 +20,27 @@ public class EntradaUsuario {
                 " 3 multiplicación \n" +
                 " 4 división\n" +
                 " 5 es un número par \n" +
-                " 6 es un numero primo"
+                " 6 es un número primo\n"
         );
-        int ope = leeUnSumando("introduzca la operación a realizar");
-        int param1 = leeUnSumando();
-        int param2 = leeUnSumando();
+        long ope = leeUnSumando("introduzca la operación a realizar");
+        long param1 = leeUnSumando();
+        // Intenta leer este param solo cuando haga falta TODO @Joni
+        long param2 = leeUnSumando();
 
         realizaOperaciones(ope, param1, param2);
 
     }
 
-    public int leeUnSumando() {
+    /**
+     * modifica esta funcion para que si le metes una letra no casque TODO  @Joni
+     * @return
+     */
+    public long leeUnSumando() {
         return leeUnSumando("introduzca el parametro");
     }
 
-    public int leeUnSumando(String mensaje) {
-        int param1;
+    public long leeUnSumando(String mensaje) {
+        long param1;
         Scanner objeto = new Scanner(System.in);
         System.out.println(mensaje);
         param1 = objeto.nextInt();
@@ -52,37 +58,41 @@ public class EntradaUsuario {
 
     }
 
-    private void realizaOperaciones(int ope, int param1, int param2) {
+    private void realizaOperaciones(long ope, long param1, long param2) {
         if (ope == 1) {
-            int suma = mates.sumas(param1, param2);
+            long suma = mates.sumas(param1, param2);
             System.out.println("la suma es : " + suma);
         }
 
         if (ope == 2) {
-            int resta = mates.restas(param1, param2);
+            long resta = mates.restas(param1, param2);
             System.out.println("la resta es : " + resta);
         }
 
         if (ope == 3) {
-            int multiplicación = mates.multiplicas(param1, param2);
+            long multiplicación = mates.multiplicas(param1, param2);
             System.out.println("la multiplicación es : " + multiplicación);
         }
 
         if (ope == 4) {
-            int división = mates.divides(param1, param2);
+            long división = mates.divides(param1, param2);
             System.out.println("la división es : " + división);
         }
         //TODO operaciones 5 y 6 @JONI
         if (ope == 5) {
-            //int división = mates.esPar(param1);
-            System.out.println("la respuesta es : " + ?);
+            if (mates.esPar(param1)) {
+                System.out.println("Número par:" + param1);
+            } else {//if (param1 % 2 != 0) { Simplificable
+                System.out.println("Número impar:" + param1);
+            }
         }
 
         if (ope == 6) {
-//            int primo = mates.esPrimo(param1);
-            System.out.println("la respuesta es : " + ?);
+            if (mates.esPrimo(param1)) {
+                System.out.println("es un número primo");
+            } else {
+                System.out.println("no es un número primo");
+            }
         }
     }
-
-
 }
