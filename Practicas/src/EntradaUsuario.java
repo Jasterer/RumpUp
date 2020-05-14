@@ -3,41 +3,48 @@ import java.io.InputStream;
 import java.util.Scanner;
 
 public class EntradaUsuario {
+    private static final String MENU_PROGRAMITA = "Bienvenido al programa matemáticas : \n" +
+            " 1 suma \n" +
+            " 2 resta \n" +
+            " 3 multiplicación \n" +
+            " 4 división\n" +
+            " 5 es un número par \n" +
+            " 6 es un número primo\n";
 
     private Matematicas mates;
 
     public EntradaUsuario() {
-
         mates = new Matematicas();
     }
 
     public void usuarioReal() {
-
-        Scanner operacion = new Scanner(System.in);
-        System.out.println("Bienvenido al programa matemáticas : \n" +
-                " 1 suma \n" +
-                " 2 resta \n" +
-                " 3 multiplicación \n" +
-                " 4 división\n" +
-                " 5 es un número par \n" +
-                " 6 es un número primo\n"
-        );
-        long ope = leeUnSumando("introduzca la operación a realizar");
+        System.out.println(MENU_PROGRAMITA);
+        final Long ope = leeUnSumando("introduzca la operación a realizar");
         long param1 = leeUnSumando();
-        // Intenta leer este param solo cuando haga falta TODO @Joni
-        long param2 = leeUnSumando();
-        /** limito las opciones para param2, me faltal conceptos...no se como ponerlo :) TODO @Week */
-        {if (param2==(" 1 suma \n" +
-                " 2 resta \n" +
-                " 3 multiplicación \n" +
-                " 4 división\n" +));}
-
+        long param2 = 0;
+        switch (ope.intValue()) {
+            case 1:
+            case 2:
+            case 3:
+            case 4: {
+                /* Intenta leer este param solo cuando haga falta TODO @Joni
+                 * Así inicializamos la variable solo si es necesario
+                 */
+                param2 = leeUnSumando();
+                break;
+            }
+            case 5:
+            case 6:
+            default: {
+                // No hacemos nada
+            }
+        }
         realizaOperaciones(ope, param1, param2);
-
     }
 
     /**
      * modifica esta funcion para que si le metes una letra no casque TODO  @Joni
+     *
      * @return
      */
     public long leeUnSumando() {
@@ -47,11 +54,15 @@ public class EntradaUsuario {
     public long leeUnSumando(String mensaje) {
         long param1;
 
-        /**mi idea es colocar una funcion para que no deje introducir letras, solo números...
-         * pero dentro de los parentesis no se a que tengo k hacer referencia... TODO @Week */
-        if (!Character.isDigit(param1)){
-            e.consume();
-        }
+        /* mi idea es colocar una funcion para que no deje introducir letras, solo números...
+         * pero dentro de los parentesis no se a que tengo k hacer referencia... TODO @Week
+         *                                                                        */
+//        if (!Character.isDigit(param1)) {
+//            e.consume();
+//        }
+
+        // Vamos a aprender el manejo de excepciones con este ejemplo. este lo corregimos en vivo
+
 
         Scanner objeto = new Scanner(System.in);
         System.out.println(mensaje);
