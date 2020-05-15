@@ -20,9 +20,13 @@ public class EntradaUsuario {
     public void usuarioReal() {
         System.out.println(MENU_PROGRAMITA);
         final Long ope = leeUnSumando("introduzca la operación a realizar");
+        // TODO que pasa si el usuario se ha equivocado , como le darias otra oportunidad?
         long param1 = leeUnSumando();
         long param2 = 0;
         switch (ope.intValue()) {
+            case 0: {
+                continue(MENU_PROGRAMITA);
+            }
             case 1:
             case 2:
             case 3:
@@ -39,7 +43,11 @@ public class EntradaUsuario {
                 // No hacemos nada
             }
         }
-        realizaOperaciones(ope, param1, param2);
+        if (ope != 0) {
+            realizaOperaciones(ope, param1, param2);
+        } else {
+            System.out.println("Operacion no valida");
+        }
     }
 
     /**
@@ -52,7 +60,7 @@ public class EntradaUsuario {
     }
 
     public long leeUnSumando(String mensaje) {
-        long param1;
+        String param1;
 
         /* mi idea es colocar una funcion para que no deje introducir letras, solo números...
          * pero dentro de los parentesis no se a que tengo k hacer referencia... TODO @Week
@@ -66,8 +74,18 @@ public class EntradaUsuario {
 
         Scanner objeto = new Scanner(System.in);
         System.out.println(mensaje);
-        param1 = objeto.nextInt();
-        return param1;
+        param1 = objeto.nextLine();
+        try {
+            Long.parseLong(param1);
+            System.out.println("lo que has metido ES un entero");
+        } catch (NumberFormatException f) {
+            System.out.println("lo que has metido no es un entero");
+            param1 = "0";
+        } catch (Exception e) {
+            System.out.println("Algo ha fallado");
+            param1 = "0";
+        }
+        return Long.parseLong(param1);
 
     }
 
