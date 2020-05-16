@@ -1,5 +1,8 @@
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.List;
 import java.util.Scanner;
 
 public class EntradaUsuario {
@@ -10,8 +13,13 @@ public class EntradaUsuario {
             " 4 división\n" +
             " 5 es un número par \n" +
             " 6 es un número primo\n";
-
+    private static final String PARAM_SEPARATOR = "-/-";
     private Matematicas mates;
+
+    private Long operation;
+    private Long firstOperator;
+    private Long secondOperator;
+
 
     public EntradaUsuario() {
         mates = new Matematicas();
@@ -19,13 +27,13 @@ public class EntradaUsuario {
 
     public void usuarioReal() {
         System.out.println(MENU_PROGRAMITA);
-        final Long ope = leeUnSumando("introduzca la operación a realizar");
+        operation = leeUnSumando("introduzca la operación a realizar");
         // TODO que pasa si el usuario se ha equivocado , como le darias otra oportunidad?
-        long param1 = leeUnSumando();
-        long param2 = 0;
-        switch (ope.intValue()) {
+        firstOperator = leeUnSumando();
+        secondOperator = 0L;
+        switch (operation.intValue()) {
             case 0: {
-                continue(MENU_PROGRAMITA);
+                break;
             }
             case 1:
             case 2:
@@ -34,7 +42,7 @@ public class EntradaUsuario {
                 /* Intenta leer este param solo cuando haga falta TODO @Joni
                  * Así inicializamos la variable solo si es necesario
                  */
-                param2 = leeUnSumando();
+                secondOperator = leeUnSumando();
                 break;
             }
             case 5:
@@ -43,7 +51,20 @@ public class EntradaUsuario {
                 // No hacemos nada
             }
         }
-        if (ope != 0) {
+        realizaOperaciones(operation,firstOperator,secondOperator);
+    }
+
+    public void usuarioReal(ObjectOutputStream objectOutputStream) {
+//        System.out.println(MENU_PROGRAMITA);
+//        ObjectInputStream input = objectOutputStream.putFields()
+//        operation=objectOutputStream.re
+
+        final Long ope = leeUnSumando("introduzca la operación a realizar");
+        // TODO que pasa si el usuario se ha equivocado , como le darias otra oportunidad?
+        long param1 = leeUnSumando();
+        long param2 = 0;
+
+        if (operation != 0) {
             realizaOperaciones(ope, param1, param2);
         } else {
             System.out.println("Operacion no valida");
@@ -89,15 +110,43 @@ public class EntradaUsuario {
 
     }
 
-    public void usuarioSimulado() {
-        InputStream simulatedInput;
-        String data1 = "1"; //Add an item option
-        String data2 = "2"; //The item to add
-        simulatedInput = new ByteArrayInputStream(data1.getBytes());
+    public ObjectOutputStream usuarioSimulado(String inputs) {
+        byte[] allElems = asBytes(inputs);
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        ObjectOutputStream oos = null;
+        try {
+            String[] params = inputs.split(PARAM_SEPARATOR);
+            bos.write(allElems);
+            oos = new ObjectOutputStream(bos);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return oos;
+    }
 
-        System.setIn(new ByteArrayInputStream("data".getBytes()));
+    public String getAsListParams(List<String> params) {
+        StringBuilder retorno = new StringBuilder();
+        int lastParam = 0;
+        for (String param : params)
+        {
+            retorno.append(param);
+            if (lastParam < param.length())
+            {
+                retorno.append(PARAM_SEPARATOR);
+            }
+        }
+        return retorno.toString();
+    }
 
-
+    public byte[] asBytes(String s) {
+        String tmp;
+        byte[] b = new byte[s.length() / 2];
+        int i;
+        for (i = 0; i < s.length() / 2; i++) {
+            tmp = s.substring(i * 2, i * 2 + 2);
+            b[i] = (byte) (Integer.parseInt(tmp, 16) & 0xff);
+        }
+        return b;                                            //return bytes
     }
 
     private void realizaOperaciones(long ope, long param1, long param2) {
