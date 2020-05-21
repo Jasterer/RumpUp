@@ -1,4 +1,4 @@
 package colec;
 
-public class Conocido {
+public class Conocido extends Persona{
 }
