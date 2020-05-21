@@ -1,7 +1,10 @@
+import lombok.extern.java.Log;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.PropertySource;
@@ -12,11 +15,11 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
-@Slf4j
-@PropertySource("classpath:commonApplication.properties")
-@ContextConfiguration
+@PropertySource("application.properties")
 @ExtendWith(SpringExtension.class)
 public class RumpUpTester {
+
+    private static final Logger logger = LoggerFactory.getLogger(RumpUpTester.class);
 
     @Value("${testValue}")
     private String initOk;
@@ -38,7 +41,9 @@ public class RumpUpTester {
 
     @Test
     public void propertiesLoadTest() {
+        logger.info("Empezando la prueba");
         assertTrue(initOk != null && initOk.equalsIgnoreCase("testValue"));
+        logger.info("Terminando la prueba");
     }
 
     @Test
