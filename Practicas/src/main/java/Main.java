@@ -23,7 +23,7 @@ public class Main {
 //        Desconocido desc = new Desconocido();
         System.out.println(Integer.MAX_VALUE + " - " + Integer.MIN_VALUE);
 
-//        @ de que se queja
+//       TODO @Joni de que se queja
         Desconocido otro  = new Desconocido(desc);
     }
 

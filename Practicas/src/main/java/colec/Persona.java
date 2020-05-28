@@ -50,6 +50,7 @@ public class Persona {
         edad= 0;
         altura= 0.0;
         fumador= true;
+        //TODO @Joni como lo harias?
         nacimiento = fechaNacimiento;
         peso =0.0;
     }
